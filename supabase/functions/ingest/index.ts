@@ -126,7 +126,9 @@ export async function ingest(
   const row = {
     household_id: hh, card_id: card?.id, kind: parsed.kind, amount: parsed.amount, currency: parsed.currency,
     foreign_amount: parsed.foreignAmount, installment: parsed.installment, approved_at: parsed.approvedAt,
-    merchant: parsed.merchant, category_id: categoryId, category_source: guess.source,
+    merchant: parsed.merchant, category_id: categoryId,
+    // 두 분이 승인한 규칙만 바로 확정, 키워드로 짐작한 건 '제안'으로 두고 앱에서 승인받음
+    category_source: categoryId ? (guess.source === 'rule' ? 'rule' : 'suggested') : null,
     status: verdict.action === 'suspect' ? 'suspect' : verdict.action === 'review' ? 'review' : 'ok',
     suspect_of: verdict.action === 'suspect' ? verdict.matchId : null,
     sources: [source], raw_hashes: [rawHash], created_by: member.user_id,

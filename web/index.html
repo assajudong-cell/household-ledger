@@ -73,7 +73,23 @@
         <button id="btn-add" class="btn">현금·이체 직접 추가</button>
       </section>
 
+      <section id="tab-trend" class="tab" hidden>
+        <h2>월별 지출 <span class="small muted" id="trend-range"></span></h2>
+        <div class="legend" id="trend-legend"></div>
+        <div id="trend-total" class="chart"></div>
+        <p id="trend-detail" class="small trend-detail"></p>
+
+        <h2>분류별 추세</h2>
+        <p class="muted small">막대는 최근 6개월, 오른쪽은 이번 달과 앞선 3개월 평균의 차이예요. 누르면 그 분류 내역을 봐요.</p>
+        <div id="trend-cats" class="list"></div>
+      </section>
+
       <section id="tab-settings" class="tab" hidden>
+        <h2>분류</h2>
+        <p class="muted small">두 분이 쓸 분류를 정해 주세요. 이름을 바꾸면 이미 나눠진 내역도 함께 바뀌고, 지우면 그 내역은 '분류 필요'로 돌아가요.</p>
+        <div id="cat-manage" class="list"></div>
+        <div class="add-row"><input id="new-cat" placeholder="새 분류 이름 (예: 아이)" aria-label="새 분류 이름"><button id="btn-add-cat" class="btn">추가</button></div>
+
         <h2>카드</h2>
         <p class="muted small">알림이 처음 오면 자동으로 추가돼요. 누구 카드인지와 별명을 정해 주세요.</p>
         <div id="cards" class="list"></div>
@@ -106,6 +122,7 @@
     <nav class="tabs">
       <button data-tab="home" class="on">홈</button>
       <button data-tab="list">내역</button>
+      <button data-tab="trend">추세</button>
       <button data-tab="settings">설정</button>
     </nav>
   </div>
