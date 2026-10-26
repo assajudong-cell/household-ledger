@@ -71,4 +71,31 @@ dialog::backdrop { background: rgb(0 0 0 / 0.4); }
 #tx-form h2 { margin: 0 0 6px; }
 .check { display: flex; align-items: center; gap: 8px; color: var(--fg); }
 .check input { width: auto; }
+.pill.info { background: var(--accent-soft); color: var(--accent); }
+.approve { display: flex; gap: 8px; }
+.approve select { flex: 1; min-width: 0; padding: 6px 10px; }
+.inbox-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; color: var(--accent); border-bottom: 1px solid var(--line); background: var(--accent-soft); }
+.btn.primary.small { font-weight: 600; }
+.add-row { display: flex; gap: 8px; margin-top: 8px; }
+.cat-edit { flex-direction: row; align-items: center; gap: 8px; }
+.cat-edit input { flex: 1; min-width: 0; padding: 6px 10px; }
+.cat-edit .n { white-space: nowrap; width: 5.5em; text-align: right; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
+.legend i.dash { width: 14px; height: 0; border-top: 1.5px dashed var(--muted); border-radius: 0; vertical-align: 3px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { fill: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; }
+.chart .grid { stroke: var(--line); stroke-width: 1; }
+.chart .avg { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+.chart .col { cursor: pointer; }
+.chart .col .hit { fill: transparent; }
+.chart .col.sel .hit { fill: var(--bubble); }
+.chart text.sel { fill: var(--fg); font-weight: 700; }
+.trend-detail { min-height: 1.6em; margin: 6px 0 0; font-variant-numeric: tabular-nums; }
+.trend-row { display: grid; grid-template-columns: minmax(0, 1fr) 66px 80px 64px; align-items: center; gap: 10px; flex-direction: unset; cursor: pointer; }
+.trend-row .lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.trend-row .val { text-align: right; font-variant-numeric: tabular-nums; }
+.trend-row .chg { white-space: nowrap; text-align: right; font-size: 0.78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.spark rect { fill: var(--accent); opacity: 0.35; } .spark rect.now { opacity: 1; }
+.tabs button { font-size: 0.95rem; }
 .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
