@@ -1,0 +1,4 @@
+project_id = "household-ledger"
+
+[functions.ingest]
+verify_jwt = false

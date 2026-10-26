@@ -1,0 +1,63 @@
+name: 배포
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm test
+
+  supabase:
+    needs: test
+    if: ${{ vars.SUPABASE_PROJECT_REF != '' }}
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with: { version: latest }
+      - run: supabase link --project-ref ${{ vars.SUPABASE_PROJECT_REF }} -p "$SUPABASE_DB_PASSWORD"
+      - run: supabase db push -p "$SUPABASE_DB_PASSWORD"
+      - run: supabase functions deploy ingest --no-verify-jwt --project-ref ${{ vars.SUPABASE_PROJECT_REF }}
+
+  pages:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 사이트 파일 모으기
+        run: |
+          mkdir -p _site/shared
+          cp -r web/* _site/
+          cp supabase/functions/_shared/*.js _site/shared/
+          cat > _site/config.js <<CFG
+          window.LEDGER_CONFIG = {
+            SUPABASE_URL: 'https://${{ vars.SUPABASE_PROJECT_REF }}.supabase.co',
+            SUPABASE_ANON_KEY: '${{ vars.SUPABASE_ANON_KEY }}',
+          };
+          CFG
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+      - id: deploy
+        uses: actions/deploy-pages@v4

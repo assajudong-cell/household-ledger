@@ -1,0 +1,6 @@
+node_modules/
+web/config.js
+web/shared/
+_site/
+.env
+supabase/.temp/
