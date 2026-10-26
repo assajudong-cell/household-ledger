@@ -14,6 +14,12 @@
 npm test
 ```
 
+## 현재 배포
+
+- Supabase 프로젝트: `qcvhgvgmfjsyrkbddgmk` (웹앱 기본값으로 워크플로에 들어 있음, anon 키는 공개용)
+- 웹앱: https://assajudong-cell.github.io/household-ledger/
+- `ingest` 함수는 JWT 검사를 켠 상태라 휴대폰에서 보낼 때 `Authorization: Bearer <anon 키>` 헤더가 필요합니다 (앱 설정 화면에서 복사).
+
 ## 배포에 필요한 설정 (GitHub 저장소 > Settings > Secrets and variables > Actions)
 
 | 종류 | 이름 | 값 |
