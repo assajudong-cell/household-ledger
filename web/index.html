@@ -87,11 +87,14 @@
           <li>Play 스토어에서 <b>MacroDroid</b> 설치</li>
           <li>매크로 추가 → 트리거 <b>알림</b> → <b>알림 수신</b> → 앱: 메시지, 카카오톡, 쓰는 카드사 앱 → 텍스트 포함: <code>원</code></li>
           <li>액션 → <b>HTTP 요청</b> → 방법 <b>POST</b> → 아래 주소 붙여넣기</li>
+          <li>헤더 추가 → 이름 <code>Authorization</code>, 값은 아래 <b>헤더 값</b> 붙여넣기</li>
           <li>본문(Content type: application/json)에 아래 내용 붙여넣기</li>
           <li>휴대폰 설정 → 애플리케이션 → MacroDroid → 배터리 → <b>제한 없음</b></li>
         </ol>
         <div class="small muted">주소</div>
         <div class="copy-row"><code id="ingest-url"></code><button class="btn small" data-copy="ingest-url">복사</button></div>
+        <div class="small muted">헤더 값 (Authorization)</div>
+        <div class="copy-row"><code id="ingest-auth"></code><button class="btn small" data-copy="ingest-auth">복사</button></div>
         <div class="small muted">본문</div>
         <div class="copy-row"><code id="ingest-body">{"title":"[not_title]","text":"[notification]","app":"[not_app_name]"}</code><button class="btn small" data-copy="ingest-body">복사</button></div>
         <p class="small muted">주소에는 내 비밀 토큰이 들어 있어요. 다른 사람에게 보내지 마세요.</p>

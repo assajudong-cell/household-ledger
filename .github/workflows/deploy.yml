@@ -36,7 +36,7 @@ jobs:
         with: { version: latest }
       - run: supabase link --project-ref ${{ vars.SUPABASE_PROJECT_REF }} -p "$SUPABASE_DB_PASSWORD"
       - run: supabase db push -p "$SUPABASE_DB_PASSWORD"
-      - run: supabase functions deploy ingest --no-verify-jwt --project-ref ${{ vars.SUPABASE_PROJECT_REF }}
+      - run: supabase functions deploy ingest --project-ref ${{ vars.SUPABASE_PROJECT_REF }}
 
   pages:
     needs: test
@@ -53,8 +53,8 @@ jobs:
           cp supabase/functions/_shared/*.js _site/shared/
           cat > _site/config.js <<CFG
           window.LEDGER_CONFIG = {
-            SUPABASE_URL: 'https://${{ vars.SUPABASE_PROJECT_REF }}.supabase.co',
-            SUPABASE_ANON_KEY: '${{ vars.SUPABASE_ANON_KEY }}',
+            SUPABASE_URL: 'https://${{ vars.SUPABASE_PROJECT_REF || 'qcvhgvgmfjsyrkbddgmk' }}.supabase.co',
+            SUPABASE_ANON_KEY: '${{ vars.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjdmhndmdtZmpzeXJrYmRkZ21rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwMTM4MDQsImV4cCI6MjEwODU4OTgwNH0._2cacnbQyMgZ4EUlHjWALadbdWaDrD4yAo50oW40Zxc' }}',
           };
           CFG
       - uses: actions/configure-pages@v5

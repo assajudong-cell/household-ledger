@@ -63,6 +63,7 @@ async function loadStatic() {
   state.categories = k.data || [];
   $('invite-code').textContent = inv.data?.code || '';
   $('ingest-url').textContent = `${SUPABASE_URL}/functions/v1/ingest?token=${state.me.ingest_token}`;
+  $('ingest-auth').textContent = `Bearer ${SUPABASE_ANON_KEY}`;
 }
 
 function monthRange({ y, m }) {
@@ -228,7 +229,7 @@ $('btn-paste').onclick = async () => {
   const text = $('paste').value.trim();
   if (!text) return;
   const res = await fetch(`${SUPABASE_URL}/functions/v1/ingest?token=${state.me.ingest_token}`, {
-    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ text, source: 'paste' }),
+    method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${SUPABASE_ANON_KEY}` }, body: JSON.stringify({ text, source: 'paste' }),
   }).then((r) => r.json()).catch(() => ({ error: '서버에 연결하지 못했어요' }));
   const msg = { new: '등록했어요', merge: '이미 있는 결제라 합쳤어요', drop: '이미 등록된 알림이에요', suspect: '중복 의심으로 등록했어요. 홈에서 확인해 주세요', cancel: '원래 결제를 취소 처리했어요', review: '확인 필요로 등록했어요', unparsed: '형식을 읽지 못해 확인 필요에 넣었어요', ignored: '카드 결제 문자가 아닌 것 같아요' };
   $('paste-result').textContent = res.error || msg[res.action || res.result] || '처리했어요';
